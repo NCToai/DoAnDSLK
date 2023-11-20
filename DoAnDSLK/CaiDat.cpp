@@ -20,20 +20,20 @@ HoKhauPtr taoNodeHoKhau(TTHK x) {
 
 }
 void nhapTTThanhVien(TTTV& tv) {
-    cout << "Nhap ID: ";
+    cout << "Nhap ID thanh vien: ";
     cin >> tv.id;
-    cout << "Nhap ho ten: ";
+    cout << "Nhap ho ten thanh vien: ";
     cin.ignore();
     cin.getline(tv.hoTen, 30);
-    cout << "Nhap nam sinh: ";
+    cout << "Nhap nam sinh thanh vien: ";
     cin >> tv.namSinh;
-    cout << "Nhap que quan: ";
+    cout << "Nhap que quan thanh vien: ";
     cin.ignore();
     cin.getline(tv.queQuan, 30);
     cout << "Nhap gioi tinh (0: Nu, 1: Nam): ";
     int gender;
     cin >> gender;
-    gender ==0 ? tv.gioiTinh = 0 : tv.gioiTinh = 1;
+    gender == 0 ? tv.gioiTinh = 0 : tv.gioiTinh = 1;
 }
 
 ThanhVienPtr ThemThanhVien(ThanhVienPtr& DSTV, TTTV x) {
@@ -73,11 +73,12 @@ void xuatDSThanhVien(ThanhVienPtr DSTV) {
 }
 
 void xuatTTThanhVien(TTTV tv) {
-    cout << "ID: " << tv.id << endl;
-    cout << "Ho ten: " << tv.hoTen << endl;
-    cout << "Nam sinh: " << tv.namSinh << endl;
-    cout << "Que quan: " << tv.queQuan << endl;
-    cout << "Gioi tinh: " << tv.gioiTinh << endl;
+
+    cout << "ID thanh vien: " << tv.id << endl;
+    cout << "Ten thanh vien: " << tv.hoTen << endl;
+    cout << "Nam sinh thanh vien: " << tv.namSinh << endl;
+    cout << "Que quan thanh vien: " << tv.queQuan << endl;
+    cout << "Gioi tinh thanh vien: " << (tv.gioiTinh ? "Nam" : "Nu") << endl;
     cout << endl;
 }
 void nhapTTHoKhau(TTHK& TTHK) {
@@ -132,3 +133,85 @@ void xuatPhuong(Phuong phuong)
     cout << "\nTen phuong: " << phuong.tenPhuong << endl;
     xuatDSHoKhau(phuong.dsHoKhau);
 }
+
+void themNguoiVaoHoKhau(Phuong& phuong) {
+    int maHoKhau;
+    cout << "\nNhap ma ho khau can them: ";
+    cin >> maHoKhau;
+    
+    HoKhauPtr hoKhauNode = phuong.dsHoKhau;
+    while (hoKhauNode != NULL) {
+        if (hoKhauNode->data.maHoKhau == maHoKhau) {
+            break;
+        }
+        hoKhauNode = hoKhauNode->next;
+    }
+
+    if (hoKhauNode == NULL) {
+        cout << "Khong tim thay ho khau co ma " << maHoKhau << endl;
+        return;
+    }
+
+    TTTV thanhVienMoi;
+    nhapTTThanhVien(thanhVienMoi);
+
+    ThanhVienPtr thanhVienNode = taoNodeThanhVien(thanhVienMoi);
+    thanhVienNode->next = hoKhauNode->data.dsThanhVien;
+    hoKhauNode->data.dsThanhVien = thanhVienNode;
+}
+void themHoKhauMoi(Phuong& phuong) {
+    TTHK hoKhauMoi;
+    nhapTTHoKhau(hoKhauMoi);
+
+    HoKhauPtr hoKhauNode = taoNodeHoKhau(hoKhauMoi);
+    themHoKhau(phuong.dsHoKhau, hoKhauMoi);
+}
+
+HoKhauPtr timHoKhau(Phuong phuong) {
+    int maTimKiem;
+    cout << "Nhap ma ho khau can tim: ";
+    cin >> maTimKiem;
+    HoKhauPtr p = phuong.dsHoKhau;
+    while (p != NULL) {
+        if (p->data.maHoKhau == maTimKiem) {
+            return p;
+        }
+        p = p->next;
+    }
+    return NULL;
+}
+
+void ghiFile(string filename, Phuong phuong) {
+    ofstream file(filename);
+    if (!file.is_open()) {
+        cout << "Khong the mo file." << endl;
+        return;
+    }
+
+    HoKhauPtr p = phuong.dsHoKhau;
+    while (p != NULL) {
+        file << p->data.maHoKhau << endl;
+        file << p->data.tenChuHo << endl;
+        file << p->data.diaChi << endl;
+        xuatDSThanhVienFile(p->data.dsThanhVien, file);
+        p = p->next;
+    }
+
+    file.close();
+}
+
+void xuatDSThanhVienFile(ThanhVienPtr DSTV, ofstream& file) {
+    ThanhVienPtr p = DSTV;
+    while (p != NULL) {
+        file << p->data.id << endl;
+        file << p->data.hoTen << endl;
+        file << p->data.namSinh << endl;
+        file << p->data.queQuan << endl;
+        file << p->data.gioiTinh << endl;
+        p = p->next;
+    }
+}
+
+
+  
+

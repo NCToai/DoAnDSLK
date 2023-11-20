@@ -1,8 +1,9 @@
-#include "ThuVien.h"
+﻿#include "ThuVien.h"
 
 int main()
 {
 	Phuong phuong ;
+   
 	int option = 1;
 
 	while (option)
@@ -28,6 +29,23 @@ int main()
             nhapPhuong(phuong);
         else if (option == 2)
             xuatPhuong(phuong);
+        else if (option == 5) {
+            HoKhauPtr hoKhauTimThay = timHoKhau(phuong);
+            if (hoKhauTimThay != NULL) {
+                cout << "Ho khau duoc tim thay:" << endl;
+                xuatTTHoKhau(hoKhauTimThay->data);
+            }
+            else {
+                cout << "Khong tim thay ho khau" << endl;
+            }
+            
+        }
+        else if (option == 6)
+            themHoKhauMoi(phuong);
+        else if (option == 7)
+            themNguoiVaoHoKhau(phuong);
+        else if (option == 11)
+            ghiFile("PhuongMoi.txt", phuong);
         else if (option == 0) break;
 	}
 
