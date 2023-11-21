@@ -66,12 +66,16 @@ void xuatPhuong(Phuong phuong);
 void themNguoiVaoHoKhau(Phuong& phuong);
 void themHoKhauMoi(Phuong& phuong);
 
+void themNguoiVaoHoKhauFile(TTHK& hoKhau, TTTV x);
+void themHoKhauMoiFile(Phuong& phuong,TTHK x);
+
 HoKhauPtr timHoKhau(Phuong phuong);
 
-void docDSThanhVienTuFile(const string& tenFile, ThanhVienPtr& DSTV);
-void docDSHoKhauTuFile(const string& tenFile, HoKhauPtr& DSHK);
-void docPhuongTuFile(const string& tenFile, Phuong& phuong);
-
-//void docDuLieuTuFile(const string& tenTep, Phuong& phuong);
 void ghiFile(string filename, Phuong phuong);
-void xuatDSThanhVienFile(ThanhVienPtr DSTV, ofstream& file);
+void ghiDSThanhVienFile(ThanhVienPtr DSTV, ofstream& file);
+
+int demSoThanhVien(ThanhVienPtr DSTV);
+
+
+void docFile(string filename, Phuong phuong);
+//void docDSThanhVienFile(ThanhVienPtr DSTV, ofstream file);
