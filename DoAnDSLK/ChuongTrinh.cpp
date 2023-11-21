@@ -51,8 +51,6 @@ int main()
             ghiFile("PhuongMoi.txt", phuong);
         else if (option == 0) break;
 	}
-
-	
 	system("pause");
 	return 0;
 }

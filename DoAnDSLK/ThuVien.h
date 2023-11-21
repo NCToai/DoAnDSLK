@@ -18,6 +18,9 @@ struct TTTV {
 struct ThanhVien {
     TTTV data;
     ThanhVien* next;
+  
+  
+  
 };
 typedef ThanhVien* ThanhVienPtr;
 
@@ -31,6 +34,7 @@ struct TTHK {
 struct HoKhau {
     TTHK data;
     HoKhau* next;
+  
 };
 typedef HoKhau* HoKhauPtr;
 
