@@ -3,7 +3,7 @@
 int main()
 {
 	Phuong phuong ;
-   
+    khoiTaoDSHK(phuong.dsHoKhau);
 	int option = 1;
 
 	while (option)
@@ -44,6 +44,9 @@ int main()
             themHoKhauMoi(phuong);
         else if (option == 7)
             themNguoiVaoHoKhau(phuong);
+        else if (option == 10) {
+            docFile("PhuongMoi.txt", phuong);
+        }
         else if (option == 11)
             ghiFile("PhuongMoi.txt", phuong);
         else if (option == 0) break;

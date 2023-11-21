@@ -8,9 +8,9 @@ using namespace std;
 
 struct TTTV {
     int id;
-    char hoTen[30];
+    char hoTen[20];
     int namSinh;
-    char queQuan[30];
+    char queQuan[20];
     bool gioiTinh;
     
 };
@@ -68,10 +68,13 @@ void themHoKhauMoi(Phuong& phuong);
 
 HoKhauPtr timHoKhau(Phuong phuong);
 
-void docDSThanhVienTuFile(const string& tenFile, ThanhVienPtr& DSTV);
-void docDSHoKhauTuFile(const string& tenFile, HoKhauPtr& DSHK);
-void docPhuongTuFile(const string& tenFile, Phuong& phuong);
-
-//void docDuLieuTuFile(const string& tenTep, Phuong& phuong);
 void ghiFile(string filename, Phuong phuong);
 void xuatDSThanhVienFile(ThanhVienPtr DSTV, ofstream& file);
+int demSoThanhVien(ThanhVienPtr DSTV);
+
+
+void themNguoiVaoHoKhauFile(TTHK& hoKhau, TTTV x);
+void themHoKhauMoiFile(Phuong& phuong, TTHK x);
+
+void docFile(string filename, Phuong& phuong);
+

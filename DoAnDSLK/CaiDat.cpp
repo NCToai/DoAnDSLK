@@ -88,7 +88,6 @@ void nhapTTHoKhau(TTHK& TTHK) {
     cin.ignore();
     cin.getline(TTHK.tenChuHo, 20);
     cout << "\nNhap dia chi : ";
-    cin.ignore();
     cin.getline(TTHK.diaChi, 20);
     nhapDSThanhVien(TTHK.dsThanhVien);
 
@@ -187,16 +186,16 @@ void ghiFile(string filename, Phuong phuong) {
         cout << "Khong the mo file." << endl;
         return;
     }
-
+    file << phuong.tenPhuong << endl;
     HoKhauPtr p = phuong.dsHoKhau;
     while (p != NULL) {
         file << p->data.maHoKhau << endl;
         file << p->data.tenChuHo << endl;
         file << p->data.diaChi << endl;
+       
         xuatDSThanhVienFile(p->data.dsThanhVien, file);
         p = p->next;
     }
-
     file.close();
 }
 
@@ -212,6 +211,66 @@ void xuatDSThanhVienFile(ThanhVienPtr DSTV, ofstream& file) {
     }
 }
 
+int demSoThanhVien(ThanhVienPtr DSTV) {
+    int dem = 0;
+    ThanhVienPtr p = DSTV;
+    while (p != NULL) {
+        dem++;
+        p = p->next;
+    }
+    return dem;
+}
 
-  
+void themHoKhauMoiFile(Phuong& phuong, TTHK x) {
+    themHoKhau(phuong.dsHoKhau, x);
+}
 
+
+
+void docFile(string filename, Phuong& phuong) {
+    ifstream file(filename);
+    if (!file.is_open()) {
+        cout << "Khong the mo file." << endl;
+        return;
+    }
+    khoiTaoDSHK(phuong.dsHoKhau);
+    file.getline(phuong.tenPhuong, 20);
+   
+
+    while (!file.eof()) {
+        TTHK newHoKhau;
+        
+        file >> newHoKhau.maHoKhau;
+        file.ignore();
+        file.getline(newHoKhau.tenChuHo, 20);
+        file.getline(newHoKhau.diaChi, 20);
+
+        int numMembers;
+        file >> numMembers;
+        file.ignore();
+
+        khoiTaoDSTV(newHoKhau.dsThanhVien);
+        for (int i = 0; i <= numMembers; i++) {
+            TTTV newThanhVien;
+            file.getline(newThanhVien.hoTen, 30);
+
+            file >> newThanhVien.namSinh;
+            file.ignore();
+            file.getline(newThanhVien.queQuan, 30);
+
+            int gioiTinh;
+            file >> gioiTinh;
+            newThanhVien.gioiTinh = gioiTinh != 0;
+
+            themNguoiVaoHoKhauFile(newHoKhau, newThanhVien);
+        }
+        themHoKhau(phuong.dsHoKhau, newHoKhau);
+    }
+    file.close();
+}
+
+void themNguoiVaoHoKhauFile(TTHK& hoKhau, TTTV x) {
+    ThanhVienPtr newThanhVien = taoNodeThanhVien(x);
+    newThanhVien->next = hoKhau.dsThanhVien;
+    hoKhau.dsThanhVien = newThanhVien;
+}
