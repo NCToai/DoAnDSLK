@@ -2,12 +2,12 @@
 
 int main()
 {
-	Phuong phuong ;
+    Phuong phuong;
     khoiTaoDSHK(phuong.dsHoKhau);
-	int option = 1;
+    int option = 1;
 
-	while (option)
-	{
+    while (option)
+    {
         cout << "\n1.Tao Phuong. ";
         cout << "\n2.Quan Ly Phuong.";
         cout << "\n3.Nhap Thong Tin Phuong. ";
@@ -38,19 +38,30 @@ int main()
             else {
                 cout << "Khong tim thay ho khau" << endl;
             }
-            
+
         }
         else if (option == 6)
             themHoKhauMoi(phuong);
         else if (option == 7)
             themNguoiVaoHoKhau(phuong);
+        else if (option == 8)
+        {
+            xuatPhuong(phuong);
+            int mshk, idtv;
+            cout << "Nhap MHK: ";
+            cin >> mshk;
+            cout << "Nhap id thanh vien: ";
+            cin >> idtv;
+            xoaThanhVien(phuong.dsHoKhau, mshk, idtv);
+            xuatPhuong(phuong);
+        }
         else if (option == 10) {
             docFile("PhuongMoi.txt", phuong);
         }
         else if (option == 11)
             ghiFile("PhuongMoi.txt", phuong);
         else if (option == 0) break;
-	}
-	system("pause");
-	return 0;
+    }
+    system("pause");
+    return 0;
 }

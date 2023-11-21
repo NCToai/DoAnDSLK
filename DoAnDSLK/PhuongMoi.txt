@@ -1,25 +1,25 @@
 P2
 1
-TA
-12/12
+Nguyen Van A
+C7/8/168/Binh Duong
 2
-12
-TE
-2123
-DWQ
+200
+Van M
+2005
+Binh Duong
 0
-21
-TA
-211
-DW
+201
+Van B
+2000
+Binh Duong
 1
 
-324
-123
-DW/21
+2
+Nguyen Thi H
+112A/D8/Dong Nai
 1
-2345
-FE
-345
-WQ
+100
+Thi C
+2002
+Dong Nai
 0

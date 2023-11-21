@@ -12,15 +12,15 @@ struct TTTV {
     int namSinh;
     char queQuan[20];
     bool gioiTinh;
-    
+
 };
 
 struct ThanhVien {
     TTTV data;
     ThanhVien* next;
-  
-  
-  
+
+
+
 };
 typedef ThanhVien* ThanhVienPtr;
 
@@ -28,13 +28,13 @@ struct TTHK {
     int maHoKhau;
     char tenChuHo[20];
     char diaChi[20];
-    ThanhVienPtr dsThanhVien; 
+    ThanhVienPtr dsThanhVien;
 };
 
 struct HoKhau {
     TTHK data;
     HoKhau* next;
-  
+
 };
 typedef HoKhau* HoKhauPtr;
 
@@ -45,7 +45,8 @@ struct Phuong {
 
 void khoiTaoDSTV(ThanhVienPtr& DSTV);
 void khoiTaoDSHK(HoKhauPtr& DSHK);
-
+void dongTieuDe();
+void dongGachNgang();
 ThanhVienPtr taoNodeThanhVien(TTTV x);
 HoKhauPtr taoNodeHoKhau(TTHK x);
 
@@ -66,6 +67,9 @@ HoKhauPtr themHoKhau(HoKhauPtr& DSHK, TTHK x);
 
 void nhapPhuong(Phuong& phuong);
 void xuatPhuong(Phuong phuong);
+
+//void xoaThanhVien(HoKhauPtr& dsHoKhau, int chiSoHoKhau, int chiSoThanhVien);
+void xoaThanhVien(HoKhauPtr& dsHoKhau, int maHoKhau, int idThanhVien);
 
 void themNguoiVaoHoKhau(Phuong& phuong);
 void themHoKhauMoi(Phuong& phuong);
