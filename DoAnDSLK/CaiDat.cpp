@@ -25,8 +25,21 @@ void nhapTTThanhVien(TTTV& tv) {
 	cout << "Nhap ho ten thanh vien: ";
 	cin.ignore();
 	cin.getline(tv.hoTen, 30);
-	cout << "Nhap nam sinh thanh vien: ";
-	cin >> tv.namSinh;
+
+	bool isValidYear;
+	do {
+		cout << "Nhap nam sinh thanh vien: ";
+		cin >> tv.namSinh;
+
+		if (tv.namSinh >= 1900 && tv.namSinh <= 2023) {
+			isValidYear = true;
+		}
+		else {
+			cout << "Nam sinh khong hop le. Vui long nhap lai.\n";
+			isValidYear = false;
+		}
+	} while (isValidYear == false);
+
 	cout << "Nhap que quan thanh vien: ";
 	cin.ignore();
 	cin.getline(tv.queQuan, 30);
@@ -190,8 +203,23 @@ void themHoKhauMoi(Phuong& phuong) {
 	TTHK hoKhauMoi;
 	nhapTTHoKhau(hoKhauMoi);
 
-	HoKhauPtr hoKhauNode = taoNodeHoKhau(hoKhauMoi);
-	themHoKhau(phuong.dsHoKhau, hoKhauMoi);
+	bool isMaHoKhauTrung = false;
+	HoKhauPtr currentHoKhau = phuong.dsHoKhau;
+	while (currentHoKhau != nullptr) {
+		if (currentHoKhau->data.maHoKhau == hoKhauMoi.maHoKhau) {
+			isMaHoKhauTrung = true;
+			break;
+		}
+		currentHoKhau = currentHoKhau->next;
+	}
+
+	if (isMaHoKhauTrung) {
+		cout << "Ma ho khau da ton tai.\n";
+	}
+	else {
+		HoKhauPtr hoKhauNode = taoNodeHoKhau(hoKhauMoi);
+		themHoKhau(phuong.dsHoKhau, hoKhauMoi);
+	}
 }
 
 HoKhauPtr timHoKhau(Phuong phuong) {
@@ -354,7 +382,7 @@ void docFile(string filename, Phuong& phuong) {
 		file >> newHoKhau.maHoKhau;
 		file.ignore();
 		file.getline(newHoKhau.tenChuHo, 20);
-		file.ignore();
+		//file.ignore();
 		file.getline(newHoKhau.diaChi, 20);
 
 
