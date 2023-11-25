@@ -25,7 +25,6 @@ void nhapTTThanhVien(TTTV& tv) {
 	cout << "Nhap ho ten thanh vien: ";
 	cin.ignore();
 	cin.getline(tv.hoTen, 30);
-
 	bool isValidYear;
 	do {
 		cout << "Nhap nam sinh thanh vien: ";
@@ -39,7 +38,6 @@ void nhapTTThanhVien(TTTV& tv) {
 			isValidYear = false;
 		}
 	} while (isValidYear == false);
-
 	cout << "Nhap que quan thanh vien: ";
 	cin.ignore();
 	cin.getline(tv.queQuan, 30);
@@ -48,12 +46,10 @@ void nhapTTThanhVien(TTTV& tv) {
 	cin >> gender;
 	gender == 0 ? tv.gioiTinh = 0 : tv.gioiTinh = 1;
 }
-
 ThanhVienPtr ThemThanhVien(ThanhVienPtr& DSTV, TTTV x) {
 	ThanhVienPtr p = taoNodeThanhVien(x);
 	p->next = DSTV;
 	DSTV = p;
-
 	return p;
 }
 HoKhauPtr themHoKhau(HoKhauPtr& DSHK, TTHK x) {
@@ -77,7 +73,6 @@ void dongGachNgang() {
 	}
 	cout << endl;
 }
-
 void nhapDSThanhVien(ThanhVienPtr& DSTV) {
 	khoiTaoDSTV(DSTV);
 	int option = 1;
@@ -90,7 +85,6 @@ void nhapDSThanhVien(ThanhVienPtr& DSTV) {
 		option != 0 ? option = 1 : option = 0;
 	} while (option != 0);
 }
-
 void xuatDSThanhVien(ThanhVienPtr DSTV) {
 	ThanhVienPtr p = DSTV;
 	while (p != NULL) {
@@ -98,7 +92,6 @@ void xuatDSThanhVien(ThanhVienPtr DSTV) {
 		p = p->next;
 	}
 }
-
 void xuatTTThanhVien(TTTV tv) {
 	cout << "|"
 		<< right << setw(8) << tv.id << "|"
@@ -106,7 +99,6 @@ void xuatTTThanhVien(TTTV tv) {
 		<< right << setw(10) << tv.namSinh << "|"
 		<< left << setw(11) << (tv.gioiTinh ? "Nam" : "Nu") << "|"
 		<< left << setw(24) << tv.queQuan << "|" << endl;
-
 }
 void nhapTTHoKhau(TTHK& TTHK) {
 	cout << "\nNhap Ma Ho khau : ";
@@ -117,9 +109,7 @@ void nhapTTHoKhau(TTHK& TTHK) {
 	cout << "\nNhap dia chi : ";
 	cin.getline(TTHK.diaChi, 20);
 	nhapDSThanhVien(TTHK.dsThanhVien);
-
 }
-
 void xuatTTHoKhau(TTHK TTHK) {
 	cout << "----------------------------------------------------------------------------" << endl;
 	cout << "|"
@@ -138,7 +128,6 @@ void xuatTTHoKhau(TTHK TTHK) {
 	dongTieuDe();
 	xuatDSThanhVien(TTHK.dsThanhVien);
 	cout << "\n|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
-
 }
 void nhapDSHoKhau(HoKhauPtr& DSHK) {
 	khoiTaoDSHK(DSHK);
@@ -154,13 +143,11 @@ void nhapDSHoKhau(HoKhauPtr& DSHK) {
 }
 void xuatDSHoKhau(HoKhauPtr DSHK) {
 	HoKhauPtr p = DSHK;
-
 	while (p != NULL) {
 		xuatTTHoKhau(p->data);
 		p = p->next;
 	}
 }
-
 void nhapPhuong(Phuong& phuong)
 {
 	cin.ignore();
@@ -173,12 +160,10 @@ void xuatPhuong(Phuong phuong)
 	cout << "\nTen phuong: " << phuong.tenPhuong << endl;
 	xuatDSHoKhau(phuong.dsHoKhau);
 }
-
 void themNguoiVaoHoKhau(Phuong& phuong) {
 	int maHoKhau;
 	cout << "\nNhap ma ho khau can them: ";
 	cin >> maHoKhau;
-
 	HoKhauPtr hoKhauNode = phuong.dsHoKhau;
 	while (hoKhauNode != NULL) {
 		if (hoKhauNode->data.maHoKhau == maHoKhau) {
@@ -186,15 +171,12 @@ void themNguoiVaoHoKhau(Phuong& phuong) {
 		}
 		hoKhauNode = hoKhauNode->next;
 	}
-
 	if (hoKhauNode == NULL) {
 		cout << "Khong tim thay ho khau co ma " << maHoKhau << endl;
 		return;
 	}
-
 	TTTV thanhVienMoi;
 	nhapTTThanhVien(thanhVienMoi);
-
 	ThanhVienPtr thanhVienNode = taoNodeThanhVien(thanhVienMoi);
 	thanhVienNode->next = hoKhauNode->data.dsThanhVien;
 	hoKhauNode->data.dsThanhVien = thanhVienNode;
@@ -202,7 +184,6 @@ void themNguoiVaoHoKhau(Phuong& phuong) {
 void themHoKhauMoi(Phuong& phuong) {
 	TTHK hoKhauMoi;
 	nhapTTHoKhau(hoKhauMoi);
-
 	bool isMaHoKhauTrung = false;
 	HoKhauPtr currentHoKhau = phuong.dsHoKhau;
 	while (currentHoKhau != nullptr) {
@@ -212,7 +193,6 @@ void themHoKhauMoi(Phuong& phuong) {
 		}
 		currentHoKhau = currentHoKhau->next;
 	}
-
 	if (isMaHoKhauTrung) {
 		cout << "Ma ho khau da ton tai.\n";
 	}
@@ -221,7 +201,6 @@ void themHoKhauMoi(Phuong& phuong) {
 		themHoKhau(phuong.dsHoKhau, hoKhauMoi);
 	}
 }
-
 HoKhauPtr timHoKhau(Phuong phuong) {
 	int maTimKiem;
 	cout << "Nhap ma ho khau can tim: ";
@@ -235,55 +214,6 @@ HoKhauPtr timHoKhau(Phuong phuong) {
 	}
 	return NULL;
 }
-/*Xoa theo vi tri va chi so*/
-//void xoaThanhVien(HoKhauPtr& dsHoKhau, int chiSoHoKhau, int chiSoThanhVien) {
-//	if (chiSoHoKhau == -1) {
-//		cout << "Ho khau khong ton tai!!" << endl;
-//	}
-//	else {
-//		HoKhauPtr currentHoKhau = dsHoKhau;
-//		int hoKhauIndex = 0;
-//
-//		// Tìm ho khau cần xóa thành viên
-//		while (currentHoKhau != nullptr && hoKhauIndex < chiSoHoKhau) {
-//			currentHoKhau = currentHoKhau->next;
-//			hoKhauIndex++;
-//		}
-//
-//		if (currentHoKhau == nullptr) {
-//			cout << "Ho khau khong ton tai!!" << endl;
-//		}
-//		else {
-//			ThanhVienPtr currentThanhVien = currentHoKhau->data.dsThanhVien;
-//			ThanhVienPtr previousThanhVien = nullptr;
-//			int thanhVienIndex = 0;
-//
-//			// Tìm thành viên cần xóa trong ho khau
-//			while (currentThanhVien != nullptr && thanhVienIndex < chiSoThanhVien) {
-//				previousThanhVien = currentThanhVien;
-//				currentThanhVien = currentThanhVien->next;
-//				thanhVienIndex++;
-//			}
-//
-//			if (currentThanhVien == nullptr) {
-//				cout << "Thanh vien khong ton tai!!" << endl;
-//			}
-//			else {
-//				// Xóa thành viên
-//				if (previousThanhVien == nullptr) {
-//					// Thành viên cần xóa là thành viên đầu tiên trong danh sách
-//					currentHoKhau->data.dsThanhVien = currentThanhVien->next;
-//				}
-//				else {
-//					previousThanhVien->next = currentThanhVien->next;
-//				}
-//
-//				delete currentThanhVien;
-//				cout << "Xoa thanh vien thanh cong!" << endl;
-//			}
-//		}
-//	}
-//}
 /*xoa theo id va mhk*/
 void xoaThanhVien(HoKhauPtr& dsHoKhau, int maHoKhau, int idThanhVien) {
 	HoKhauPtr currentHoKhau = dsHoKhau;
@@ -342,7 +272,6 @@ void ghiFile(string filename, Phuong phuong) {
 	}
 	file.close();
 }
-
 void xuatDSThanhVienFile(ThanhVienPtr DSTV, ofstream& file) {
 	ThanhVienPtr p = DSTV;
 	while (p != NULL) {
@@ -354,7 +283,6 @@ void xuatDSThanhVienFile(ThanhVienPtr DSTV, ofstream& file) {
 		p = p->next;
 	}
 }
-
 int demSoThanhVien(ThanhVienPtr DSTV) {
 	int dem = 0;
 	ThanhVienPtr p = DSTV;
@@ -372,20 +300,15 @@ void docFile(string filename, Phuong& phuong) {
 	}
 	khoiTaoDSHK(phuong.dsHoKhau);
 	TTHK newHoKhau;
-
 	file.ignore();
 	file >> phuong.tenPhuong;
 	file.ignore();
-
 	while (!file.eof()) {
 		int n;
 		file >> newHoKhau.maHoKhau;
 		file.ignore();
 		file.getline(newHoKhau.tenChuHo, 20);
-		//file.ignore();
 		file.getline(newHoKhau.diaChi, 20);
-
-
 		file >> n;
 		file.ignore();
 		khoiTaoDSTV(newHoKhau.dsThanhVien);
@@ -394,21 +317,17 @@ void docFile(string filename, Phuong& phuong) {
 			file >> newThanhVien.id;
 			file.ignore();
 			file.getline(newThanhVien.hoTen, 30);
-
 			file >> newThanhVien.namSinh;
 			file.ignore();
 			file.getline(newThanhVien.queQuan, 30);
-
 			int gioiTinh;
 			file >> gioiTinh;
 			file.ignore();
 			newThanhVien.gioiTinh = gioiTinh != 0;
 			themNguoiVaoHoKhauFile(newHoKhau, newThanhVien);
 		}
-
 		if (n != 0)themHoKhauMoiFile(phuong, newHoKhau);
 		n = 0;
-
 	}
 	file.close();
 }
@@ -421,4 +340,60 @@ void themNguoiVaoHoKhauFile(TTHK& hoKhau, TTTV x) {
 	ThanhVienPtr newThanhVien = taoNodeThanhVien(x);
 	newThanhVien->next = hoKhau.dsThanhVien;
 	hoKhau.dsThanhVien = newThanhVien;
+}
+void xoaHoKhauTheoMa(HoKhauPtr& danhSachHoKhau, int maHoKhau) {
+	if (danhSachHoKhau == nullptr) {
+		cout << "Ho khau rong." << endl;
+		return;
+	}
+	HoKhauPtr hkHienTai = danhSachHoKhau;
+	HoKhauPtr hkTruoc = nullptr;
+	while (hkHienTai != nullptr && hkHienTai->data.maHoKhau != maHoKhau) {
+		hkTruoc = hkHienTai;
+		hkHienTai = hkHienTai->next;
+	}
+	if (hkHienTai == nullptr) {
+		cout << "Khong tim thay ma ho khau can xoa." << endl;
+		return;
+	}
+	//thuc hien xoa co ma hk trung vs mk trong ds
+	if (hkTruoc == nullptr) {
+		danhSachHoKhau = danhSachHoKhau->next;
+	}
+	else {
+		hkTruoc->next = hkHienTai->next;
+	}
+	delete hkHienTai;
+}
+void swap(ThanhVienPtr a, ThanhVienPtr b) {
+	TTTV temp = a->data;
+	a->data = b->data;
+	b->data = temp;
+}
+void sapXepTheoMaHoKhau(HoKhauPtr danhSachHoKhau, int maHoKhau) {
+	HoKhauPtr hoKhau = danhSachHoKhau;
+	while (hoKhau != NULL) {
+		if (hoKhau->data.maHoKhau == maHoKhau) {
+			ThanhVienPtr danhSachThanhVien = hoKhau->data.dsThanhVien;
+			bool swapped;
+			ThanhVienPtr ptr1;
+			ThanhVienPtr lptr = NULL;
+			if (danhSachThanhVien == NULL)
+				return;
+			do {
+				swapped = false;
+				ptr1 = danhSachThanhVien;
+				while (ptr1->next != lptr) {
+					//so sach chuoi
+					if (strcmp(ptr1->data.hoTen, ptr1->next->data.hoTen) > 0) {
+						swap(ptr1, ptr1->next);
+						swapped = true;
+					}
+					ptr1 = ptr1->next;
+				}
+				lptr = ptr1;
+			} while (swapped);
+		}
+		hoKhau = hoKhau->next;
+	}
 }

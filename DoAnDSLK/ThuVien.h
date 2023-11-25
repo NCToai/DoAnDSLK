@@ -18,9 +18,6 @@ struct TTTV {
 struct ThanhVien {
     TTTV data;
     ThanhVien* next;
-
-
-
 };
 typedef ThanhVien* ThanhVienPtr;
 
@@ -34,7 +31,6 @@ struct TTHK {
 struct HoKhau {
     TTHK data;
     HoKhau* next;
-
 };
 typedef HoKhau* HoKhauPtr;
 
@@ -68,11 +64,14 @@ HoKhauPtr themHoKhau(HoKhauPtr& DSHK, TTHK x);
 void nhapPhuong(Phuong& phuong);
 void xuatPhuong(Phuong phuong);
 
-//void xoaThanhVien(HoKhauPtr& dsHoKhau, int chiSoHoKhau, int chiSoThanhVien);
 void xoaThanhVien(HoKhauPtr& dsHoKhau, int maHoKhau, int idThanhVien);
+void xoaHoKhauTheoMa(HoKhauPtr& danhSachHoKhau, int maHoKhau);
 
 void themNguoiVaoHoKhau(Phuong& phuong);
 void themHoKhauMoi(Phuong& phuong);
+void swap(ThanhVienPtr a, ThanhVienPtr b);
+void sapXepTheoMaHoKhau(HoKhauPtr danhSachHoKhau, int maHoKhau);
+
 
 HoKhauPtr timHoKhau(Phuong phuong);
 
@@ -80,9 +79,7 @@ void ghiFile(string filename, Phuong phuong);
 void xuatDSThanhVienFile(ThanhVienPtr DSTV, ofstream& file);
 int demSoThanhVien(ThanhVienPtr DSTV);
 
-
 void themNguoiVaoHoKhauFile(TTHK& hoKhau, TTTV x);
 void themHoKhauMoiFile(Phuong& phuong, TTHK x);
 
 void docFile(string filename, Phuong& phuong);
-
