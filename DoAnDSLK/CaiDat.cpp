@@ -116,15 +116,15 @@ void xuatTTHoKhau(TTHK TTHK) {
 	cout << "|"
 		<< left << setw(10) << "MHK" << "|"
 		<< left << setw(22) << "CHU HO" << "|"
-		<< left << setw(22) << "ID" << "|"
-		//<< left << setw(22) << "DIA CHI" << "|"
+		//<< left << setw(22) << "ID" << "|"
+		<< left << setw(22) << "DIA CHI" << "|"
 		<< left << setw(22) << "THANH VIEN" << "|" << endl;
 
 	cout << "|"
 		<< left << setw(10) << TTHK.maHoKhau << "|"
 		<< left << setw(22) << TTHK.tenChuHo << "|"
-		<< left << setw(22) << TTHK.dsThanhVien->data.id<< "|"
-		//<< left << setw(22) << TTHK.diaChi << "|"
+		//<< left << setw(22) << TTHK.dsThanhVien->data.id<< "|"
+		<< left << setw(22) << TTHK.diaChi << "|"
 		<< left << setw(22) << demSoThanhVien(TTHK.dsThanhVien) << "|" << endl;
 	cout << "----------------------------------------------------------------------------" << endl;
 	cout << endl;
