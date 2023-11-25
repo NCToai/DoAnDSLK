@@ -68,7 +68,7 @@ void dongTieuDe() {
 	cout << endl;
 }
 void dongGachNgang() {
-	for (int i = 0; i < 133; i++) {
+	for (int i = 0; i < 81; i++) {
 		cout << "-";
 	}
 	cout << endl;
@@ -90,6 +90,7 @@ void xuatDSThanhVien(ThanhVienPtr DSTV) {
 	while (p != NULL) {
 		xuatTTThanhVien(p->data);
 		p = p->next;
+		dongGachNgang();
 	}
 }
 void xuatTTThanhVien(TTTV tv) {
@@ -113,21 +114,26 @@ void nhapTTHoKhau(TTHK& TTHK) {
 void xuatTTHoKhau(TTHK TTHK) {
 	cout << "----------------------------------------------------------------------------" << endl;
 	cout << "|"
-		<< left << setw(5) << "MHK" << "|"
+		<< left << setw(10) << "MHK" << "|"
 		<< left << setw(22) << "CHU HO" << "|"
-		<< left << setw(22) << "DIA CHI" << "|"
+		<< left << setw(22) << "ID" << "|"
+		//<< left << setw(22) << "DIA CHI" << "|"
 		<< left << setw(22) << "THANH VIEN" << "|" << endl;
 
 	cout << "|"
-		<< left << setw(5) << TTHK.maHoKhau << "|"
+		<< left << setw(10) << TTHK.maHoKhau << "|"
 		<< left << setw(22) << TTHK.tenChuHo << "|"
-		<< left << setw(22) << TTHK.diaChi << "|"
+		<< left << setw(22) << TTHK.dsThanhVien->data.id<< "|"
+		//<< left << setw(22) << TTHK.diaChi << "|"
 		<< left << setw(22) << demSoThanhVien(TTHK.dsThanhVien) << "|" << endl;
 	cout << "----------------------------------------------------------------------------" << endl;
 	cout << endl;
+	dongGachNgang();
 	dongTieuDe();
+	dongGachNgang();
 	xuatDSThanhVien(TTHK.dsThanhVien);
-	cout << "\n|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
+	cout << "\n__________________________________[ HO KHAU ]___________________________________________" << endl;
+
 }
 void nhapDSHoKhau(HoKhauPtr& DSHK) {
 	khoiTaoDSHK(DSHK);
