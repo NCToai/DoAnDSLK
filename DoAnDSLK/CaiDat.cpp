@@ -167,10 +167,11 @@ void xuatPhuong(Phuong phuong)
 	xuatDSHoKhau(phuong.dsHoKhau);
 }
 void themNguoiVaoHoKhau(Phuong& phuong) {
-	int maHoKhau;
+	string maHoKhau;
 	cout << "\nNhap ma ho khau can them: ";
 	cin >> maHoKhau;
 	HoKhauPtr hoKhauNode = phuong.dsHoKhau;
+	/*int integerValue = stoi(hoKhauNode->data.maHoKhau);*/
 	while (hoKhauNode != NULL) {
 		if (hoKhauNode->data.maHoKhau == maHoKhau) {
 			break;
@@ -208,7 +209,7 @@ void themHoKhauMoi(Phuong& phuong) {
 	}
 }
 HoKhauPtr timHoKhau(Phuong phuong) {
-	int maTimKiem;
+	string maTimKiem;
 	cout << "Nhap ma ho khau can tim: ";
 	cin >> maTimKiem;
 	HoKhauPtr p = phuong.dsHoKhau;
@@ -221,21 +222,21 @@ HoKhauPtr timHoKhau(Phuong phuong) {
 	return NULL;
 }
 /*xoa theo id va mhk*/
-void xoaThanhVien(HoKhauPtr& dsHoKhau, int maHoKhau, int idThanhVien) {
+void xoaThanhVien(HoKhauPtr& dsHoKhau, string maHoKhau, int idThanhVien) {
 	HoKhauPtr currentHoKhau = dsHoKhau;
 
 	// Tìm ho khau cần xóa thành viên
-	while (currentHoKhau != nullptr && currentHoKhau->data.maHoKhau != maHoKhau) {
+	while (currentHoKhau != NULL && currentHoKhau->data.maHoKhau != maHoKhau) {
 		currentHoKhau = currentHoKhau->next;
 	}
 
-	if (currentHoKhau == nullptr) {
+	if (currentHoKhau == NULL) {
 		cout << "Ho khau khong ton tai!!" << endl;
 		return;
 	}
 
 	ThanhVienPtr currentThanhVien = currentHoKhau->data.dsThanhVien;
-	ThanhVienPtr previousThanhVien = nullptr;
+	ThanhVienPtr previousThanhVien = NULL;
 
 	// Tìm thành viên cần xóa trong ho khau
 	while (currentThanhVien != nullptr && currentThanhVien->data.id != idThanhVien) {
@@ -243,13 +244,13 @@ void xoaThanhVien(HoKhauPtr& dsHoKhau, int maHoKhau, int idThanhVien) {
 		currentThanhVien = currentThanhVien->next;
 	}
 
-	if (currentThanhVien == nullptr) {
+	if (currentThanhVien == NULL) {
 		cout << "Thanh vien khong ton tai!!" << endl;
 		return;
 	}
 
 	// Xóa thành viên
-	if (previousThanhVien == nullptr) {
+	if (previousThanhVien == NULL) {
 		// Thành viên cần xóa là thành viên đầu tiên trong danh sách
 		currentHoKhau->data.dsThanhVien = currentThanhVien->next;
 	}
@@ -347,23 +348,25 @@ void themNguoiVaoHoKhauFile(TTHK& hoKhau, TTTV x) {
 	newThanhVien->next = hoKhau.dsThanhVien;
 	hoKhau.dsThanhVien = newThanhVien;
 }
-void xoaHoKhauTheoMa(HoKhauPtr& danhSachHoKhau, int maHoKhau) {
-	if (danhSachHoKhau == nullptr) {
+void xoaHoKhauTheoMa(HoKhauPtr& danhSachHoKhau, string maHoKhau) {
+	if (danhSachHoKhau == NULL) {
 		cout << "Ho khau rong." << endl;
 		return;
 	}
 	HoKhauPtr hkHienTai = danhSachHoKhau;
-	HoKhauPtr hkTruoc = nullptr;
-	while (hkHienTai != nullptr && hkHienTai->data.maHoKhau != maHoKhau) {
+
+	HoKhauPtr hkTruoc = NULL;
+	while (hkHienTai != NULL && (hkHienTai->data.maHoKhau != maHoKhau) )
+	{
 		hkTruoc = hkHienTai;
 		hkHienTai = hkHienTai->next;
 	}
-	if (hkHienTai == nullptr) {
+	if (hkHienTai == NULL) {
 		cout << "Khong tim thay ma ho khau can xoa." << endl;
 		return;
 	}
 	//thuc hien xoa co ma hk trung vs mk trong ds
-	if (hkTruoc == nullptr) {
+	if (hkTruoc == NULL) {
 		danhSachHoKhau = danhSachHoKhau->next;
 	}
 	else {
@@ -376,8 +379,9 @@ void swap(ThanhVienPtr a, ThanhVienPtr b) {
 	a->data = b->data;
 	b->data = temp;
 }
-void sapXepTheoMaHoKhau(HoKhauPtr danhSachHoKhau, int maHoKhau) {
+void sapXepTheoMaHoKhau(HoKhauPtr danhSachHoKhau, string maHoKhau) {
 	HoKhauPtr hoKhau = danhSachHoKhau;
+
 	while (hoKhau != NULL) {
 		if (hoKhau->data.maHoKhau == maHoKhau) {
 			ThanhVienPtr danhSachThanhVien = hoKhau->data.dsThanhVien;
