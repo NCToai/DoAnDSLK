@@ -1,6 +1,7 @@
 P2
 0111
 Nguyen Kim Mai
+800
 C7/8/168/Binh Duong
 3
 200
@@ -21,6 +22,7 @@ Binh Duong
 
 2930
 Nguyen Van Nam
+900
 112A/D8/Dong Nai
 2
 100

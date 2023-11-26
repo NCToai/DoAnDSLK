@@ -42,10 +42,10 @@ int main()
 			themHoKhauMoi(phuong);
 		else if (option == 5)
 			themNguoiVaoHoKhau(phuong);
-		/*else if (option == 6)
+		else if (option == 6)
 		{
 			xuatPhuong(phuong);
-			string mshk, 
+			string mshk;
 			int idtv ;
 			cout << "Nhap MHK: ";
 			cin >> mshk;
@@ -54,9 +54,10 @@ int main()
 			xoaThanhVien(phuong.dsHoKhau, mshk, idtv);
 			cout << "\nXoa Thanh Cong Thanh Vien Khoi Ho Khau!" << endl;
 			xuatPhuong(phuong);
-		}*/
+		}
 		else if (option == 7)
 		{
+			xuatPhuong(phuong);
 			string maXoa;
 			cout << "Nhap MHK can xoa: ";
 			cin >> maXoa;

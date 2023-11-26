@@ -1,4 +1,5 @@
 #pragma once
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -12,7 +13,6 @@ struct TTTV {
     int namSinh;
     char queQuan[20];
     bool gioiTinh;
-
 };
 
 struct ThanhVien {
@@ -23,6 +23,7 @@ typedef ThanhVien* ThanhVienPtr;
 
 struct TTHK {
     string maHoKhau;
+    int idChuHo;
     char tenChuHo[20] {};
     char diaChi[20] {};
     ThanhVienPtr dsThanhVien {};
@@ -64,7 +65,8 @@ HoKhauPtr themHoKhau(HoKhauPtr& DSHK, TTHK x);
 void nhapPhuong(Phuong& phuong);
 void xuatPhuong(Phuong phuong);
 
-void xoaThanhVien(HoKhauPtr& dsHoKhau, string maHoKhau, int idThanhVien);
+void xoaThanhVien(HoKhauPtr& dSachHoKhau, string maHoKhau, int idThanhVien);
+ThanhVienPtr timThanhVienTheoID(ThanhVienPtr danhSach, int id);
 void xoaHoKhauTheoMa(HoKhauPtr& danhSachHoKhau, string maHoKhau);
 
 void themNguoiVaoHoKhau(Phuong& phuong);
