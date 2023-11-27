@@ -45,8 +45,11 @@ int main()
 		else if (option == 6)
 		{
 			xuatPhuong(phuong);
+			//test
+			/*string mshk="2930";
+			int idtv=900 ;*/
 			string mshk;
-			int idtv ;
+			int idtv;
 			cout << "Nhap MHK: ";
 			cin >> mshk;
 			cout << "Nhap ID thanh vien: ";

@@ -318,7 +318,7 @@ void xoaHoKhauTheoMa(HoKhauPtr& danhSachHoKhau, string maHoKhau) {
 	HoKhauPtr hkHienTai = danhSachHoKhau;
 
 	HoKhauPtr hkTruoc = NULL;
-	while (hkHienTai != NULL && (hkHienTai->data.maHoKhau != maHoKhau) )
+	while (hkHienTai != NULL && (hkHienTai->data.maHoKhau != maHoKhau))
 	{
 		hkTruoc = hkHienTai;
 		hkHienTai = hkHienTai->next;
@@ -369,84 +369,79 @@ void sapXepTheoMaHoKhau(HoKhauPtr danhSachHoKhau, string maHoKhau) {
 		hoKhau = hoKhau->next;
 	}
 }
-void xoaThanhVien(HoKhauPtr& dSachHoKhau, string maHoKhau, int idThanhVien) {
+void xoaThanhVien(HoKhauPtr& dSachHoKhau, string maHoKhau, int idThanhVien) 
+{
 	HoKhauPtr hkHienTai = dSachHoKhau;
-
 	// Tìm hộ khẩu cần xóa thành viên
-	while (hkHienTai != nullptr && hkHienTai->data.maHoKhau != maHoKhau) {
+	while (hkHienTai != nullptr && hkHienTai->data.maHoKhau != maHoKhau) 
+	{
 		hkHienTai = hkHienTai->next;
 	}
-
-	if (hkHienTai == nullptr) {
+	if (hkHienTai == nullptr) 
+	{
 		cout << "HO KHAU KHONG TON TAI!!" << endl;
 		return;
 	}
-
 	ThanhVienPtr tvHienTai = hkHienTai->data.dsThanhVien;
 	ThanhVienPtr tvTruocDo = nullptr;
 	ThanhVienPtr chuHo = nullptr;
 
-	// Tìm thành viên cần xóa trong hộ khẩu và kiểm tra nếu là chủ hộ
-	while (tvHienTai != nullptr && tvHienTai->data.id != idThanhVien) {
+	
+	// tim tv can xoa va kiem tra neu la chu ho 
+	while (tvHienTai != nullptr && tvHienTai->data.id != idThanhVien) 
+	{
 		tvTruocDo = tvHienTai;
 		tvHienTai = tvHienTai->next;
 		if (tvHienTai != nullptr && tvHienTai->data.id != idThanhVien) {
 			chuHo = tvHienTai;
 		}
 	}
-
-	if (tvHienTai == nullptr) {
-		cout << "THANH VIEN KHONG TON TAI!!" << endl;
-		return;
-	}
-
-	if (idThanhVien == hkHienTai->data.idChuHo) {
-		if (chuHo == nullptr) {
-			cout << "KHONG TIM THAY CHU HO!!" << endl;
-			return;
-		}
-
-		// Xóa chủ hộ
+	
+	if (idThanhVien == hkHienTai->data.idChuHo) 
+	{
+		// xoa chu ho
 		int idThanhVienThayThe;
 		cout << "NHAP ID NGUOI THAY THE: ";
 		cin >> idThanhVienThayThe;
-
 		ThanhVienPtr thanhVienThayThe = timThanhVienTheoID(hkHienTai->data.dsThanhVien, idThanhVienThayThe);
 		if (thanhVienThayThe == nullptr) {
 			cout << "KHONG TIM THAY THANH VIEN!!" << endl;
 			return;
 		}
-
-		// Thay đổi thông tin chủ hộ
+		// thay doi thong tin chu moi va chu cu
 		hkHienTai->data.idChuHo = idThanhVienThayThe;
 		strncpy(hkHienTai->data.tenChuHo, thanhVienThayThe->data.hoTen, 20);
+		// sau khi doi chu moi thanh vien do trong danh sach bi loai bo va dua tv khac len
+		if (thanhVienThayThe == hkHienTai->data.dsThanhVien) {
+			hkHienTai->data.dsThanhVien = thanhVienThayThe->next;
+		}
+		else 
+		{
+			ThanhVienPtr tmp = hkHienTai->data.dsThanhVien;
+			while (tmp->next != thanhVienThayThe) {
+				tmp = tmp->next;
+			}
+			tmp->next = thanhVienThayThe->next;
+		}
 
-		// Xóa chủ hộ khỏi danh sách thành viên
-		if (tvTruocDo == nullptr) {
-			// Chủ hộ là thành viên đầu tiên trong danh sách
-			hkHienTai->data.dsThanhVien = chuHo->next;
-		}
-		else {
-			tvTruocDo->next = chuHo->next;
-		}
-		delete chuHo;
-		cout << "XOA CHU HO THANH CONG!" << endl;
+		delete thanhVienThayThe;
+		cout << "THAY THE CHU HO THANH CONG!" << endl;
 	}
-	else {
-		// Xóa thành viên
+	else 
+	{
+		//xoa tv neu khong phai la chu ho
 		if (tvTruocDo == nullptr) {
-			// Thành viên cần xóa là thành viên đầu tiên trong danh sách
+			// tv can xoa la tv dau tien trong ds
 			hkHienTai->data.dsThanhVien = tvHienTai->next;
 		}
-		else {
+		else 
+		{
 			tvTruocDo->next = tvHienTai->next;
 		}
-
 		delete tvHienTai;
 		cout << "XOA THANH CONG THANH VIEN!" << endl;
 	}
 }
-
 ThanhVienPtr timThanhVienTheoID(ThanhVienPtr danhSach, int id) {
 	ThanhVienPtr current = danhSach;
 	while (current != nullptr) {
