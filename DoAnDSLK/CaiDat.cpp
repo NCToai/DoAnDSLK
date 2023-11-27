@@ -107,6 +107,9 @@ void nhapTTHoKhau(TTHK& TTHK) {
 	cout << "\nNhap Ten Chu Ho : ";
 	cin.ignore();
 	cin.getline(TTHK.tenChuHo, 20);
+	cout << "\nNhap ID Chu Ho : ";
+	cin >> TTHK.idChuHo;
+	cin.ignore();
 	cout << "\nNhap dia chi : ";
 	cin.getline(TTHK.diaChi, 20);
 	nhapDSThanhVien(TTHK.dsThanhVien);
@@ -116,7 +119,7 @@ void xuatTTHoKhau(TTHK TTHK) {
 	cout << "|"
 		<< left << setw(10) << "MHK" << "|"
 		<< left << setw(22) << "CHU HO" << "|"
-		<< left << setw(22) << "ID" << "|"
+		<< left << setw(22) << "ID CHU HO" << "|"
 		<< left << setw(22) << "DIA CHI" << "|"
 		<< left << setw(22) << "THANH VIEN" << "|" << endl;
 
@@ -171,7 +174,6 @@ void themNguoiVaoHoKhau(Phuong& phuong) {
 	cout << "\nNhap ma ho khau can them: ";
 	cin >> maHoKhau;
 	HoKhauPtr hoKhauNode = phuong.dsHoKhau;
-	/*int integerValue = stoi(hoKhauNode->data.maHoKhau);*/
 	while (hoKhauNode != NULL) {
 		if (hoKhauNode->data.maHoKhau == maHoKhau) {
 			break;
@@ -193,7 +195,7 @@ void themHoKhauMoi(Phuong& phuong) {
 	nhapTTHoKhau(hoKhauMoi);
 	bool isMaHoKhauTrung = false;
 	HoKhauPtr currentHoKhau = phuong.dsHoKhau;
-	while (currentHoKhau != nullptr) {
+	while (currentHoKhau != NULL) {
 		if (currentHoKhau->data.maHoKhau == hoKhauMoi.maHoKhau) {
 			isMaHoKhauTrung = true;
 			break;
@@ -373,52 +375,45 @@ void xoaThanhVien(HoKhauPtr& dSachHoKhau, string maHoKhau, int idThanhVien)
 {
 	
 	HoKhauPtr hkHienTai = dSachHoKhau;
-	// Tìm hộ khẩu cần xóa thành viên
-	while (hkHienTai != nullptr && hkHienTai->data.maHoKhau != maHoKhau) 
+	while (hkHienTai != NULL && hkHienTai->data.maHoKhau != maHoKhau) 
 	{
 		hkHienTai = hkHienTai->next;
 	}
-	if (hkHienTai == nullptr) 
+	if (hkHienTai == NULL) 
 	{
 		cout << "HO KHAU KHONG TON TAI!!" << endl;
 		return;
 	}
-	//Buoc kt giua idThanhVien voi idchuho va id tv 
 	if (idThanhVien != hkHienTai->data.idChuHo && idThanhVien != hkHienTai->data.dsThanhVien->data.id)
 	{
 		cout << "KHONG TON TAI THANH VIEN DO TRONG HO KHAU VUI LONG KIEM TRA LAI!"<<endl;
 		return;
 	}
 	ThanhVienPtr tvHienTai = hkHienTai->data.dsThanhVien;
-	ThanhVienPtr tvTruocDo = nullptr;
-	ThanhVienPtr chuHo = nullptr;
+	ThanhVienPtr tvTruocDo = NULL;
+	ThanhVienPtr chuHo = NULL;
 
-	
-	// tim tv can xoa va kiem tra neu la chu ho 
-	while (tvHienTai != nullptr && tvHienTai->data.id != idThanhVien) 
+	while (tvHienTai != NULL && tvHienTai->data.id != idThanhVien) 
 	{
 		tvTruocDo = tvHienTai;
 		tvHienTai = tvHienTai->next;
-		if (tvHienTai != nullptr && tvHienTai->data.id != idThanhVien) {
+		if (tvHienTai != NULL && tvHienTai->data.id != idThanhVien) {
 			chuHo = tvHienTai;
 		}
 	}
 	
 	if (idThanhVien == hkHienTai->data.idChuHo) 
 	{
-		// xoa chu ho
 		int idThanhVienThayThe;
 		cout << "NHAP ID NGUOI THAY THE: ";
 		cin >> idThanhVienThayThe;
 		ThanhVienPtr thanhVienThayThe = timThanhVienTheoID(hkHienTai->data.dsThanhVien, idThanhVienThayThe);
-		if (thanhVienThayThe == nullptr) {
+		if (thanhVienThayThe == NULL) {
 			cout << "KHONG TIM THAY THANH VIEN!!" << endl;
 			return;
 		}
-		// thay doi thong tin chu moi va chu cu
 		hkHienTai->data.idChuHo = idThanhVienThayThe;
 		strncpy(hkHienTai->data.tenChuHo, thanhVienThayThe->data.hoTen, 20);
-		// sau khi doi chu moi thanh vien do trong danh sach bi loai bo va dua tv khac len
 		if (thanhVienThayThe == hkHienTai->data.dsThanhVien) {
 			hkHienTai->data.dsThanhVien = thanhVienThayThe->next;
 		}
@@ -436,9 +431,7 @@ void xoaThanhVien(HoKhauPtr& dSachHoKhau, string maHoKhau, int idThanhVien)
 	}
 	else 
 	{
-		//xoa tv neu khong phai la chu ho
-		if (tvTruocDo == nullptr) {
-			// tv can xoa la tv dau tien trong ds
+		if (tvTruocDo == NULL) {
 			hkHienTai->data.dsThanhVien = tvHienTai->next;
 		}
 		else 
@@ -451,11 +444,11 @@ void xoaThanhVien(HoKhauPtr& dSachHoKhau, string maHoKhau, int idThanhVien)
 }
 ThanhVienPtr timThanhVienTheoID(ThanhVienPtr danhSach, int id) {
 	ThanhVienPtr current = danhSach;
-	while (current != nullptr) {
+	while (current != NULL) {
 		if (current->data.id == id) {
 			return current;
 		}
 		current = current->next;
 	}
-	return nullptr; // Không tìm thấy thành viên
+	return NULL; 
 }

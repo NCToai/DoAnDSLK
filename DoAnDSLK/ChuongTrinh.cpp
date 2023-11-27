@@ -31,7 +31,7 @@ int main()
 		else if (option == 3) {
 			HoKhauPtr hoKhauTimThay = timHoKhau(phuong);
 			if (hoKhauTimThay != NULL) {
-				cout << "Ho khau duoc tim thay:" << endl;
+				cout << "\nHo khau duoc tim thay:" << endl;
 				xuatTTHoKhau(hoKhauTimThay->data);
 			}
 			else {
@@ -45,9 +45,6 @@ int main()
 		else if (option == 6)
 		{
 			xuatPhuong(phuong);
-			//test
-			/*string mshk="2930";
-			int idtv=900 ;*/
 			string mshk;
 			int idtv;
 			cout << "Nhap MHK: ";
