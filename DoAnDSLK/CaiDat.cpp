@@ -371,6 +371,7 @@ void sapXepTheoMaHoKhau(HoKhauPtr danhSachHoKhau, string maHoKhau) {
 }
 void xoaThanhVien(HoKhauPtr& dSachHoKhau, string maHoKhau, int idThanhVien) 
 {
+	
 	HoKhauPtr hkHienTai = dSachHoKhau;
 	// Tìm hộ khẩu cần xóa thành viên
 	while (hkHienTai != nullptr && hkHienTai->data.maHoKhau != maHoKhau) 
@@ -380,6 +381,12 @@ void xoaThanhVien(HoKhauPtr& dSachHoKhau, string maHoKhau, int idThanhVien)
 	if (hkHienTai == nullptr) 
 	{
 		cout << "HO KHAU KHONG TON TAI!!" << endl;
+		return;
+	}
+	//Buoc kt giua idThanhVien voi idchuho va id tv 
+	if (idThanhVien != hkHienTai->data.idChuHo && idThanhVien != hkHienTai->data.dsThanhVien->data.id)
+	{
+		cout << "KHONG TON TAI THANH VIEN DO TRONG HO KHAU VUI LONG KIEM TRA LAI!"<<endl;
 		return;
 	}
 	ThanhVienPtr tvHienTai = hkHienTai->data.dsThanhVien;

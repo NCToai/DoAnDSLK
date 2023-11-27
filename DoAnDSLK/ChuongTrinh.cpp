@@ -55,7 +55,6 @@ int main()
 			cout << "Nhap ID thanh vien: ";
 			cin >> idtv;
 			xoaThanhVien(phuong.dsHoKhau, mshk, idtv);
-			cout << "\nXoa Thanh Cong Thanh Vien Khoi Ho Khau!" << endl;
 			xuatPhuong(phuong);
 		}
 		else if (option == 7)
