@@ -186,9 +186,16 @@ void themNguoiVaoHoKhau(Phuong& phuong) {
 	}
 	TTTV thanhVienMoi;
 	nhapTTThanhVien(thanhVienMoi);
-	ThanhVienPtr thanhVienNode = taoNodeThanhVien(thanhVienMoi);
-	thanhVienNode->next = hoKhauNode->data.dsThanhVien;
-	hoKhauNode->data.dsThanhVien = thanhVienNode;
+	if (thanhVienMoi.id == hoKhauNode->data.dsThanhVien->data.id)
+	{
+		cout << "\nMA ID DA TON TAI. KHONG THEM DUOC MA !"<<endl;
+	}
+	else
+	{
+		ThanhVienPtr thanhVienNode = taoNodeThanhVien(thanhVienMoi);
+		thanhVienNode->next = hoKhauNode->data.dsThanhVien;
+		hoKhauNode->data.dsThanhVien = thanhVienNode;
+	}
 }
 void themHoKhauMoi(Phuong& phuong) {
 	TTHK hoKhauMoi;
@@ -234,6 +241,7 @@ void ghiFile(string filename, Phuong phuong) {
 	while (p != NULL) {
 		file << p->data.maHoKhau << endl;
 		file << p->data.tenChuHo << endl;
+		file << p->data.idChuHo << endl;
 		file << p->data.diaChi << endl;
 		file << demSoThanhVien(p->data.dsThanhVien) << endl;
 		xuatDSThanhVienFile(p->data.dsThanhVien, file);
@@ -371,29 +379,29 @@ void sapXepTheoMaHoKhau(HoKhauPtr danhSachHoKhau, string maHoKhau) {
 		hoKhau = hoKhau->next;
 	}
 }
-void xoaThanhVien(HoKhauPtr& dSachHoKhau, string maHoKhau, int idThanhVien) 
+void xoaThanhVien(HoKhauPtr& dSachHoKhau, string maHoKhau, int idThanhVien)
 {
-	
+
 	HoKhauPtr hkHienTai = dSachHoKhau;
-	while (hkHienTai != NULL && hkHienTai->data.maHoKhau != maHoKhau) 
+	while (hkHienTai != NULL && hkHienTai->data.maHoKhau != maHoKhau)
 	{
 		hkHienTai = hkHienTai->next;
 	}
-	if (hkHienTai == NULL) 
+	if (hkHienTai == NULL)
 	{
 		cout << "HO KHAU KHONG TON TAI!!" << endl;
 		return;
 	}
 	if (idThanhVien != hkHienTai->data.idChuHo && idThanhVien != hkHienTai->data.dsThanhVien->data.id)
 	{
-		cout << "KHONG TON TAI THANH VIEN DO TRONG HO KHAU VUI LONG KIEM TRA LAI!"<<endl;
+		cout << "KHONG TON TAI THANH VIEN DO TRONG HO KHAU VUI LONG KIEM TRA LAI!" << endl;
 		return;
 	}
 	ThanhVienPtr tvHienTai = hkHienTai->data.dsThanhVien;
 	ThanhVienPtr tvTruocDo = NULL;
 	ThanhVienPtr chuHo = NULL;
 
-	while (tvHienTai != NULL && tvHienTai->data.id != idThanhVien) 
+	while (tvHienTai != NULL && tvHienTai->data.id != idThanhVien)
 	{
 		tvTruocDo = tvHienTai;
 		tvHienTai = tvHienTai->next;
@@ -401,8 +409,8 @@ void xoaThanhVien(HoKhauPtr& dSachHoKhau, string maHoKhau, int idThanhVien)
 			chuHo = tvHienTai;
 		}
 	}
-	
-	if (idThanhVien == hkHienTai->data.idChuHo) 
+
+	if (idThanhVien == hkHienTai->data.idChuHo)
 	{
 		int idThanhVienThayThe;
 		cout << "NHAP ID NGUOI THAY THE: ";
@@ -417,7 +425,7 @@ void xoaThanhVien(HoKhauPtr& dSachHoKhau, string maHoKhau, int idThanhVien)
 		if (thanhVienThayThe == hkHienTai->data.dsThanhVien) {
 			hkHienTai->data.dsThanhVien = thanhVienThayThe->next;
 		}
-		else 
+		else
 		{
 			ThanhVienPtr tmp = hkHienTai->data.dsThanhVien;
 			while (tmp->next != thanhVienThayThe) {
@@ -429,12 +437,12 @@ void xoaThanhVien(HoKhauPtr& dSachHoKhau, string maHoKhau, int idThanhVien)
 		delete thanhVienThayThe;
 		cout << "THAY THE CHU HO THANH CONG!" << endl;
 	}
-	else 
+	else
 	{
 		if (tvTruocDo == NULL) {
 			hkHienTai->data.dsThanhVien = tvHienTai->next;
 		}
-		else 
+		else
 		{
 			tvTruocDo->next = tvHienTai->next;
 		}
@@ -450,5 +458,5 @@ ThanhVienPtr timThanhVienTheoID(ThanhVienPtr danhSach, int id) {
 		}
 		current = current->next;
 	}
-	return NULL; 
+	return NULL;
 }

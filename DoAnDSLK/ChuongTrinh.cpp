@@ -80,7 +80,7 @@ int main()
 		}
 		else if (option == 10)
 		{
-			ghiFile("PhuongMoi.txt", phuong);
+			ghiFile("WritePhuongMoi.txt", phuong);
 			cout << "\nGHI FILE THANH CONG!" << endl;
 		}
 
