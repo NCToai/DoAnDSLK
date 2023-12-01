@@ -115,6 +115,7 @@ void nhapTTHoKhau(TTHK& TTHK) {
 	nhapDSThanhVien(TTHK.dsThanhVien);
 }
 void xuatTTHoKhau(TTHK TTHK) {
+	cout << "\n__________________________________________________[ HO KHAU ]_______________________________________________" << endl;
 	cout << "--------------------------------------------------------------------------------------------------------" << endl;
 	cout << "|"
 		<< left << setw(10) << "MHK" << "|"
@@ -135,7 +136,6 @@ void xuatTTHoKhau(TTHK TTHK) {
 	dongTieuDe();
 	dongGachNgang();
 	xuatDSThanhVien(TTHK.dsThanhVien);
-	cout << "\n__________________________________________________[ HO KHAU ]_______________________________________________" << endl;
 
 }
 void nhapDSHoKhau(HoKhauPtr& DSHK) {
@@ -188,7 +188,7 @@ void themNguoiVaoHoKhau(Phuong& phuong) {
 	nhapTTThanhVien(thanhVienMoi);
 	if (thanhVienMoi.id == hoKhauNode->data.dsThanhVien->data.id)
 	{
-		cout << "\nMA ID DA TON TAI. KHONG THEM DUOC MA !"<<endl;
+		cout << "\nMA ID DA TON TAI. KHONG THEM DUOC MA !" << endl;
 	}
 	else
 	{
@@ -326,7 +326,6 @@ void xoaHoKhauTheoMa(HoKhauPtr& danhSachHoKhau, string maHoKhau) {
 		return;
 	}
 	HoKhauPtr hkHienTai = danhSachHoKhau;
-
 	HoKhauPtr hkTruoc = NULL;
 	while (hkHienTai != NULL && (hkHienTai->data.maHoKhau != maHoKhau))
 	{
@@ -381,82 +380,71 @@ void sapXepTheoMaHoKhau(HoKhauPtr danhSachHoKhau, string maHoKhau) {
 }
 void xoaThanhVien(HoKhauPtr& dSachHoKhau, string maHoKhau, int idThanhVien)
 {
-
 	HoKhauPtr hkHienTai = dSachHoKhau;
-	while (hkHienTai != NULL && hkHienTai->data.maHoKhau != maHoKhau)
+	//tim hk can xoa tv
+	while (hkHienTai != nullptr && hkHienTai->data.maHoKhau != maHoKhau)
 	{
 		hkHienTai = hkHienTai->next;
 	}
-	if (hkHienTai == NULL)
+	if (hkHienTai == nullptr)
 	{
 		cout << "HO KHAU KHONG TON TAI!!" << endl;
 		return;
 	}
-	if (idThanhVien != hkHienTai->data.idChuHo && idThanhVien != hkHienTai->data.dsThanhVien->data.id)
-	{
-		cout << "KHONG TON TAI THANH VIEN DO TRONG HO KHAU VUI LONG KIEM TRA LAI!" << endl;
-		return;
-	}
-	ThanhVienPtr tvHienTai = hkHienTai->data.dsThanhVien;
-	ThanhVienPtr tvTruocDo = NULL;
-	ThanhVienPtr chuHo = NULL;
-
-	while (tvHienTai != NULL && tvHienTai->data.id != idThanhVien)
-	{
-		tvTruocDo = tvHienTai;
-		tvHienTai = tvHienTai->next;
-		if (tvHienTai != NULL && tvHienTai->data.id != idThanhVien) {
-			chuHo = tvHienTai;
-		}
-	}
-
-	if (idThanhVien == hkHienTai->data.idChuHo)
-	{
-		int idThanhVienThayThe;
-		cout << "NHAP ID NGUOI THAY THE: ";
-		cin >> idThanhVienThayThe;
-		ThanhVienPtr thanhVienThayThe = timThanhVienTheoID(hkHienTai->data.dsThanhVien, idThanhVienThayThe);
-		if (thanhVienThayThe == NULL) {
-			cout << "KHONG TIM THAY THANH VIEN!!" << endl;
-			return;
-		}
-		hkHienTai->data.idChuHo = idThanhVienThayThe;
-		strncpy(hkHienTai->data.tenChuHo, thanhVienThayThe->data.hoTen, 20);
-		if (thanhVienThayThe == hkHienTai->data.dsThanhVien) {
-			hkHienTai->data.dsThanhVien = thanhVienThayThe->next;
-		}
-		else
-		{
-			ThanhVienPtr tmp = hkHienTai->data.dsThanhVien;
-			while (tmp->next != thanhVienThayThe) {
-				tmp = tmp->next;
-			}
-			tmp->next = thanhVienThayThe->next;
-		}
-
-		delete thanhVienThayThe;
-		cout << "THAY THE CHU HO THANH CONG!" << endl;
-	}
 	else
 	{
-		if (tvTruocDo == NULL) {
-			hkHienTai->data.dsThanhVien = tvHienTai->next;
+		ThanhVienPtr tvHienTai = hkHienTai->data.dsThanhVien;
+		ThanhVienPtr tvTruocDo = nullptr;
+		// tim tv can xoa 
+		while (tvHienTai != NULL && tvHienTai->data.id != idThanhVien)
+		{
+			tvTruocDo = tvHienTai;
+			tvHienTai = tvHienTai->next;
+		}
+		if (idThanhVien == hkHienTai->data.idChuHo)
+		{
+			int idThanhVienThayThe;
+			cout << "NHAP ID NGUOI THAY THE: ";
+			cin >> idThanhVienThayThe;
+			ThanhVienPtr thanhVienThayThe = timThanhVienTheoID(hkHienTai->data.dsThanhVien, idThanhVienThayThe);
+			if (thanhVienThayThe == nullptr) {
+				cout << "KHONG TIM THAY THANH VIEN THAY THE!!" << endl;
+				return;
+			}
+			else
+			{
+				hkHienTai->data.idChuHo = idThanhVienThayThe;
+				strncpy(hkHienTai->data.tenChuHo, thanhVienThayThe->data.hoTen, 20);
+				// sau khi doi chu moi thanh vien do trong danh sach bi loai bo va dua tv khac len
+				hkHienTai->data.dsThanhVien = thanhVienThayThe->next;
+				delete thanhVienThayThe;
+				cout << "THAY THE CHU HO THANH CONG!" << endl;
+			}
 		}
 		else
 		{
-			tvTruocDo->next = tvHienTai->next;
+			if (tvHienTai == nullptr)
+			{
+				cout << "THANH VIEN KHONG TON TAI TRONG HO KHAU!!" << endl;
+				return;
+			}
+			
+			if (tvTruocDo == nullptr)
+				hkHienTai->data.dsThanhVien = tvHienTai->next;
+			else
+				tvTruocDo->next = tvHienTai->next;
+			delete tvHienTai;
+			cout << "XOA THANH CONG THANH VIEN!" << endl;
 		}
-		delete tvHienTai;
-		cout << "XOA THANH CONG THANH VIEN!" << endl;
 	}
 }
 ThanhVienPtr timThanhVienTheoID(ThanhVienPtr danhSach, int id) {
 	ThanhVienPtr current = danhSach;
-	while (current != NULL) {
+	while (current != nullptr) {
 		if (current->data.id == id) {
 			return current;
 		}
 		current = current->next;
 	}
-	return NULL;
+	return nullptr;
 }

@@ -23,10 +23,10 @@ typedef ThanhVien* ThanhVienPtr;
 
 struct TTHK {
     string maHoKhau;
-    int idChuHo {};
-    char tenChuHo[20] {};
-    char diaChi[20] {};
-    ThanhVienPtr dsThanhVien {};
+    int idChuHo ;
+    char tenChuHo[20];
+    char diaChi[20] ;
+    ThanhVienPtr dsThanhVien;
 };
 
 struct HoKhau {
