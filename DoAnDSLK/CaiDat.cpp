@@ -185,16 +185,26 @@ void themNguoiVaoHoKhau(Phuong& phuong) {
 		return;
 	}
 	TTTV thanhVienMoi;
+	bool isMaHoKhauTrung = false;
 	nhapTTThanhVien(thanhVienMoi);
-	if (thanhVienMoi.id == hoKhauNode->data.dsThanhVien->data.id)
-	{
-		cout << "\nMA ID DA TON TAI. KHONG THEM DUOC MA !" << endl;
+	ThanhVienPtr tvNode = phuong.dsHoKhau->data.dsThanhVien;
+	while (tvNode != NULL) {
+		if (thanhVienMoi.id == tvNode->data.id)
+		{
+			isMaHoKhauTrung = true;
+			break;
+		}
+		tvNode = tvNode->next;
 	}
-	else
+	if (isMaHoKhauTrung)
 	{
+		cout << "Ma da ton tai";
+	}
+	else {
 		ThanhVienPtr thanhVienNode = taoNodeThanhVien(thanhVienMoi);
-		thanhVienNode->next = hoKhauNode->data.dsThanhVien;
-		hoKhauNode->data.dsThanhVien = thanhVienNode;
+		ThemThanhVien(phuong.dsHoKhau->data.dsThanhVien, thanhVienMoi);
+		/*thanhVienNode->next = tvNode;
+		tvNode = thanhVienNode;*/
 	}
 }
 void themHoKhauMoi(Phuong& phuong) {
@@ -230,6 +240,16 @@ HoKhauPtr timHoKhau(Phuong phuong) {
 	}
 	return NULL;
 }
+int demSoThanhVien(ThanhVienPtr DSTV) {
+	int dem = 0;
+	ThanhVienPtr p = DSTV;
+	while (p != NULL) {
+		dem++;
+		p = p->next;
+	}
+	return dem;
+}
+
 void ghiFile(string filename, Phuong phuong) {
 	ofstream file(filename);
 	if (!file.is_open()) {
@@ -259,15 +279,6 @@ void xuatDSThanhVienFile(ThanhVienPtr DSTV, ofstream& file) {
 		file << p->data.gioiTinh << endl;
 		p = p->next;
 	}
-}
-int demSoThanhVien(ThanhVienPtr DSTV) {
-	int dem = 0;
-	ThanhVienPtr p = DSTV;
-	while (p != NULL) {
-		dem++;
-		p = p->next;
-	}
-	return dem;
 }
 void docFile(string filename, Phuong& phuong) {
 	ifstream file(filename);

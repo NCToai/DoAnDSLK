@@ -147,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="PhuongMoi.txt" />
+    <Text Include="WritePhuongMoi.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -31,5 +31,6 @@
     <Text Include="PhuongMoi.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="WritePhuongMoi.txt" />
   </ItemGroup>
 </Project>
